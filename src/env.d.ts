@@ -1,6 +1,9 @@
 // Define the type of the environment variables.
 declare interface Env {
   readonly NODE_ENV: string;
+  readonly NG_API_URL: string;
+  readonly NG_AUTH_DOMAIN: string;
+  readonly NG_AUTH_CLIENT_ID: string;
   // Replace the following with your own environment variables.
   // Example: NGX_VERSION: string;
   [key: string]: any;
