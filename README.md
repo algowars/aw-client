@@ -7,7 +7,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ```ts
 export const environment = {
   production: false,
-  apiServerUrl: 'http://localhost:6000',
+  apiServerUrl: 'http://localhost:5035',
   auth: {
     domain: '',
     clientId: '',
