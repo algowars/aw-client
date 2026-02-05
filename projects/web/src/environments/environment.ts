@@ -1,13 +1,9 @@
-declare const authDomain: string;
-declare const clientId: string;
-declare const apiServerUrl: string;
-
 export const environment = {
   production: true,
-  apiServerUrl: apiServerUrl,
+  apiServerUrl: '#{{API_SERVER_URL}}#',
   auth: {
-    domain: authDomain,
-    clientId: clientId,
+    domain: '#{{AUTH_DOMAIN}}#',
+    clientId: '#{{AUTH_CLIENT_ID}}#',
     authorizationParams: {
       redirect_uri: window.location.origin,
     },
