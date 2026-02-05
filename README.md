@@ -2,6 +2,22 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
 
+## Environment variables
+
+```ts
+export const environment = {
+  production: false,
+  apiServerUrl: 'http://localhost:6000',
+  auth: {
+    domain: '',
+    clientId: '',
+    authorizationParams: {
+      redirect_uri: window.location.origin,
+    },
+  },
+};
+```
+
 ## Development server
 
 To start a local development server, run:
