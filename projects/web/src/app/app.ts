@@ -5,6 +5,8 @@ import { AuthService } from '@auth0/auth0-angular';
 import { LoginButtonComponent } from './components/login-button/login-button';
 import { LogoutButtonComponent } from './components/logout-button/logout-button';
 import { ProfileComponent } from './components/profile/profile';
+import { ButtonModule } from 'primeng/button';
+import { ThemeSwitcher } from './theme/theme-switcher/theme-switcher';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +16,10 @@ import { ProfileComponent } from './components/profile/profile';
     LoginButtonComponent,
     LogoutButtonComponent,
     ProfileComponent,
+    ButtonModule,
+    ThemeSwitcher,
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {
   protected auth = inject(AuthService);
