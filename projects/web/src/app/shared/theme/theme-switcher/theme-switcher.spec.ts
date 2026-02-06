@@ -8,9 +8,8 @@ describe('ThemeSwitcher', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ThemeSwitcher]
-    })
-    .compileComponents();
+      imports: [ThemeSwitcher],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ThemeSwitcher);
     component = fixture.componentInstance;
@@ -19,5 +18,16 @@ describe('ThemeSwitcher', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should toggle dark mode class on html', () => {
+    const root = document.documentElement;
+    root.classList.remove('p-dark');
+
+    component.toggleDarkMode();
+    expect(root.classList.contains('p-dark')).toBe(true);
+
+    component.toggleDarkMode();
+    expect(root.classList.contains('p-dark')).toBe(false);
   });
 });
