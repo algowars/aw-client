@@ -3,7 +3,8 @@
   "version": 1,
   "cli": {
     "packageManager": "pnpm",
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": ["angular-eslint"]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -25,9 +26,7 @@
                 "input": "projects/web/public"
               }
             ],
-            "styles": [
-              "projects/web/src/styles.css"
-            ]
+            "styles": ["projects/web/src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -75,6 +74,13 @@
         "test": {
           "builder": "@ngx-env/builder:unit-test",
           "options": {}
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/web/**/*.ts", "projects/web/**/*.html"],
+            "eslintConfig": "projects/web/eslint.config.js"
+          }
         }
       }
     }
