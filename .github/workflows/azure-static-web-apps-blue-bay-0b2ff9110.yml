@@ -15,34 +15,51 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     permissions:
-       id-token: write
-       contents: read
+      id-token: write
+      contents: read
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
           lfs: false
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.27.0
+          run_install: true
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build app
+        env:
+          NG_APP_API_SERVER_URL: ${{ secrets.API_SERVER_URL }}
+          NG_APP_AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
+          NG_APP_AUTH_CLIENT_ID: ${{ secrets.AUTH_CLIENT_ID }}
+        run: pnpm build
+
       - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client
+        run: pnpm install @actions/core@1.6.0 @actions/http-client
       - name: Get Id Token
         uses: actions/github-script@v6
         id: idtoken
         with:
-           script: |
-               const coredemo = require('@actions/core')
-               return await coredemo.getIDToken()
-           result-encoding: string
+          script: |
+            const coredemo = require('@actions/core')
+            return await coredemo.getIDToken()
+          result-encoding: string
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_BAY_0B2FF9110 }}
-          action: "upload"
+          action: 'upload'
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "dist/web" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "dist/bright-star-competitions-admin-ui" # Built app content directory - optional
+          app_location: 'dist/web/browser' # App source code path
+          api_location: '' # Api source code path - optional
+          output_location: 'dist/bright-star-competitions-admin-ui' # Built app content directory - optional
           github_id_token: ${{ steps.idtoken.outputs.result }}
           ###### End of Repository/Build Configurations ######
 
@@ -55,4 +72,4 @@ jobs:
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          action: "close"
+          action: 'close'
