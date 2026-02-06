@@ -66,7 +66,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run tests
-        run: pnpm test -- --watch=false --browsers=ChromeHeadlessNoSandbox --coverage.enabled --coverage.reporter=json --coverage.reporter=json-summary --coverage.reporter=lcov
+        run: pnpm test --watch=false --browsers=ChromeHeadlessNoSandbox --coverage.enabled --coverage.reporter=json --coverage.reporter=json-summary --coverage.reporter=lcov
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
