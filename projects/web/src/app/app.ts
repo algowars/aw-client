@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, ButtonModule],
+  imports: [RouterOutlet, ToastModule],
   templateUrl: './app.html',
+  providers: [],
 })
 export class App {}

@@ -3,7 +3,7 @@ import { appConfig } from './app/app.config';
 import { App } from './app/app';
 
 try {
-  await bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+  await bootstrapApplication(App, appConfig);
 } catch (error) {
   console.error(error);
 }

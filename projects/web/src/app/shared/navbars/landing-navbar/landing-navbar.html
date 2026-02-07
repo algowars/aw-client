@@ -3,13 +3,13 @@
         <h1><a [routerLink]="'/'" class="spacing-tight font-semibold text-xl uppercase">Algowars</a></h1>
         <ul class="flex items-center gap-3 ml-auto">
             <li>
-                <a [routerLink]="'/'" class="mr-2 text-muted-color">Home</a>
+                <a [routerLink]="'/'" pButton text severity="secondary" size="small">Home</a>
             </li>
             <li>
-                <a [routerLink]="'/problems'" class="text-muted-color">Problems</a>
+                <a [routerLink]="'/problems'" pButton text severity="secondary" size="small">Problems</a>
             </li>
             <li>
-                <app-login-button variant="text" class="h-8 px-2.5 flex justify-center items-center text-muted-color"/>
+                <app-login-button variant="text" severity="secondary"  size="small"/>
             </li>
             <li>
                 <app-signup-button />

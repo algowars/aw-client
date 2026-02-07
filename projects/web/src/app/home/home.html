@@ -1,14 +1,15 @@
 <app-landing-layout>
-     <section class="py-24 flex flex-col items-center text-center gap-3">
-          <h1 class="text-5xl md:text-6xl font-bold tracking-tight">Compete against other developers</h1>
-          <h2 class="text-2xl md:text-3xl mb-5">In fast paced coding challenges</h2>
+     <section class="py-24 flex flex-col items-center text-center gap-5">
+          <h1 class="text-5xl md:text-6xl font-bold tracking-tight max-w-5xl">Battle against other Developers in
+Fast-Paced Coding Challenges</h1>
+          <p class="text-muted-color max-w-2xl">Solve as many challenges as you can within the allotted time. Compete with your peers, collaborate, and communicate with other developers in real time.</p>
           <ul class="flex items-center gap-3">
                <li>
-                    <app-login-button class="w-48"/>
+                    <app-login-button class="w-48" size="small"/>
 
                </li>
                <li>
-                    <a routerLink="/problems" pButton severity="secondary" class="w-48">View Problems</a>
+                    <a routerLink="/problems" pButton severity="secondary" class="w-48" size="small">View Problems</a>
                </li>
           </ul>
      </section>

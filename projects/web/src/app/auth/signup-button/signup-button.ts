@@ -6,7 +6,7 @@ import { Button } from 'primeng/button';
   selector: 'app-signup-button',
     imports: [Button],
   template: `
-  <p-button (onClick)="signUp()" styleClass="h-8 px-2.5 flex justify-center items-center">Sign Up</p-button>
+  <p-button (onClick)="signUp()" size="small">Sign Up</p-button>
   `
 })
 export class SignupButton {
