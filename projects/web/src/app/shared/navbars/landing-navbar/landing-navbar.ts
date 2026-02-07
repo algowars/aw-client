@@ -1,12 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LoginButton } from '../../../auth/login-button/login-button';
-import { SignupButton } from '../../../auth/signup-button/signup-button';
-import { ButtonDirective } from 'primeng/button';
+import { ButtonDirective, Button } from 'primeng/button';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-landing-navbar',
-  imports: [RouterLink, LoginButton, SignupButton, ButtonDirective],
+  imports: [RouterLink, ButtonDirective, Button],
   templateUrl: './landing-navbar.html',
 })
-export class LandingNavbar {}
+export class LandingNavbar {
+  private readonly auth = inject(AuthService);
+
+  logIn() {
+    this.auth.loginWithRedirect();
+  }
+
+  signUp() {
+    this.auth.loginWithRedirect({ appState: { screen_hint: 'signup' } });
+  }
+
+  logOut() {
+    this.auth.logout({
+      logoutParams: {
+        returnTo: globalThis.window.document.location.origin,
+      },
+    });
+  }
+}

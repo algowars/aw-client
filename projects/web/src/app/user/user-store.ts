@@ -1,6 +1,7 @@
 import { signalStore, type } from '@ngrx/signals';
 import { eventGroup, Events, on, withEventHandlers, withReducer } from '@ngrx/signals/events';
 import {
+  setError,
   setLoaded,
   setLoading,
   withCallState,
@@ -23,11 +24,11 @@ export const userEvents = eventGroup({
   },
 });
 
-export interface UserState {
+export interface UserStoreState {
   _user: User | null;
 }
 
-export const initialState: UserState = {
+export const initialState: UserStoreState = {
   _user: null,
 };
 
@@ -38,7 +39,7 @@ export const UserStore = signalStore(
   withReducer(
     on(userEvents.loadUser, () => setLoading()),
     on(userEvents.loadUserSuccess, ({ payload: user }) => [{ _user: user }, setLoaded()]),
-    on(userEvents.loadUserFailure, () => setLoaded()),
+    on(userEvents.loadUserFailure, ({ payload: error }) => [setError(error), setLoaded()]),
   ),
   withEventHandlers(
     (

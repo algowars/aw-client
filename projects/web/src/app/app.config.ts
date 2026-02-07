@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { themePreset } from './theme';
-import { UserStore } from './user/user-store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAuth0(environment.auth),
     MessageService,
-    UserStore,
     providePrimeNG({
       theme: {
         preset: themePreset,
