@@ -1,1 +1,9 @@
-<p>landing-layout works!</p>
+<div className="flex flex-col min-h-screen bg-background" {...props}>
+  <header>
+    <app-landing-navbar />
+  </header>
+  <main id="main-content" class="grow" tabIndex="{-1}">
+    <ng-content />
+  </main>
+  <app-landing-footer />
+</div>
