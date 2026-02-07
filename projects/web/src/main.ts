@@ -2,10 +2,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { appConfig } from './app/app.config';
 import { App } from './app/app';
 
-(async () => {
-  try {
-    await bootstrapApplication(App, appConfig).catch((err) => console.error(err));
-  } catch (err) {
-    console.error(err);
-  }
-})();
+try {
+  await bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+} catch (error) {
+  console.error(error);
+}
