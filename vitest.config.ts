@@ -19,6 +19,12 @@ export default defineConfig({
       exclude: [
         '**/types/**',
         '**/constants/**',
+        '**/environments/**',
+        'app.config.ts',
+        'app.routes.ts',
+        'index.html',
+        'main.ts',
+        'theme.ts',
         '**/*.d.ts',
       ],
       thresholds: {
