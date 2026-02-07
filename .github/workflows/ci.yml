@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build-Lint
+    name: Build, Lint, and Test
     runs-on: ubuntu-latest
     if: github.event.pull_request.head.repo.full_name == github.repository
 
@@ -38,33 +38,6 @@ jobs:
       - name: Run prettier
         run: pnpm prettier --check "**/*.{ts,js,json,css,html}"
 
-  test:
-    name: Test ${{ matrix.artifact }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - branch: main
-            artifact: main
-          - branch: ${{ github.head_ref }}
-            artifact: pull-request
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-          lfs: false
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.27.0
-          run_install: true
-          cache: pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Run tests
         run: pnpm test --watch=false --coverage
 
@@ -74,7 +47,7 @@ jobs:
           name: coverage-${{ matrix.artifact }}
           path: coverage/
 
-  report-coverage:
+ report-coverage:
     name: Report coverage comparison
     needs: test
     runs-on: ubuntu-latest
