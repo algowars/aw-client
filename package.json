@@ -9,7 +9,9 @@
     "test": "ng test",
     "test:coverage": "ng test --coverage",
     "test:ui": "vitest --ui",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "format": "pnpm exec prettier --check .",
+    "format:write": "pnpm exec prettier --write ."
   },
   "prettier": {
     "printWidth": 100,
