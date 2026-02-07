@@ -31,16 +31,8 @@
           "configurations": {
             "production": {
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
+                { "type": "initial", "maximumWarning": "500kB", "maximumError": "1MB" },
+                { "type": "anyComponentStyle", "maximumWarning": "4kB", "maximumError": "8kB" }
               ],
               "outputHashing": "all"
             },
@@ -58,8 +50,8 @@
             "staging": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.staging.ts"
+                  "replace": "projects/web/src/environments/environment.ts",
+                  "with": "projects/web/src/environments/environment.staging.ts"
                 }
               ]
             }
@@ -74,6 +66,9 @@
             },
             "development": {
               "buildTarget": "web:build:development"
+            },
+            "staging": {
+              "buildTarget": "web:build:staging"
             }
           },
           "defaultConfiguration": "development",
@@ -81,13 +76,16 @@
         },
         "test": {
           "builder": "@ngx-env/builder:unit-test",
-          "options": {
-            "fileReplacements": [
-              {
-                "replace": "projects/web/src/environments/environment.ts",
-                "with": "projects/web/src/environments/environment.staging.ts"
-              }
-            ]
+          "options": {},
+          "configurations": {
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/web/src/environments/environment.ts",
+                  "with": "projects/web/src/environments/environment.staging.ts"
+                }
+              ]
+            }
           }
         },
         "lint": {
