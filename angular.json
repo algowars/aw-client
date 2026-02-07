@@ -81,7 +81,14 @@
         },
         "test": {
           "builder": "@ngx-env/builder:unit-test",
-          "options": {}
+          "options": {
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.staging.ts"
+              }
+            ]
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
