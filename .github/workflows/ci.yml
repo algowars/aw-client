@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build, Lint, Test (Staging config)
+    name: Build
     runs-on: ubuntu-latest
     if: github.event.pull_request.head.repo.full_name == github.repository
 
@@ -40,7 +40,7 @@ jobs:
         run: pnpm prettier --check "**/*.{ts,js,json,css,html}"
 
       - name: Run tests
-        run: pnpm test --watch=false --coverage --configuration=staging
+        run: pnpm test --watch=false --coverage
         env:
           NODE_ENV: staging
           NG_APP_API_SERVER_URL: ${{ vars.STAGING_API_SERVER_URL }}

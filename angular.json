@@ -81,7 +81,25 @@
         },
         "test": {
           "builder": "@ngx-env/builder:unit-test",
-          "options": {}
+          "options": {},
+          "configurations": {
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/web/src/environments/environment.ts",
+                  "with": "projects/web/src/environments/environment.staging.ts"
+                }
+              ]
+            },
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/web/src/environments/environment.ts",
+                  "with": "projects/web/src/environments/environment.production.ts"
+                }
+              ]
+            }
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
