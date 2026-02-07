@@ -4,6 +4,7 @@ export const environment = {
   auth: {
     domain: import.meta.env['NG_APP_AUTH_DOMAIN'] as string,
     clientId: import.meta.env['NG_APP_AUTH_CLIENT_ID'] as string,
+    audience: import.meta.env['NG_APP_AUTH_AUDIENCE'] as string,
     authorizationParams: {
       redirect_uri: globalThis.location.origin,
     },
