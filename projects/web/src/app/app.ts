@@ -13,4 +13,8 @@ import { UserStore } from './user/user-store';
 export class App {
   private readonly auth0Store = inject(Auth0Store);
   private readonly userStore = inject(UserStore);
+
+  constructor() {
+    console.log(globalThis.window.origin);
+  }
 }

@@ -8,6 +8,10 @@ export const routes: Routes = [
     component: Home,
   },
   {
+    path: 'auth/callback',
+    loadComponent: () => import('./auth/auth-callback/auth-callback').then((m) => m.AuthCallback),
+  },
+  {
     path: '**',
     component: NotFound,
   },

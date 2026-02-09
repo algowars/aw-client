@@ -6,7 +6,7 @@ import {
   withImmutableState,
 } from '@angular-architects/ngrx-toolkit';
 import { inject } from '@angular/core';
-import { signalStore, type, withHooks } from '@ngrx/signals';
+import { signalStore, type, withComputed, withHooks } from '@ngrx/signals';
 import {
   eventGroup,
   Events,
@@ -28,8 +28,11 @@ export interface Auth0State {
 export const auth0Events = eventGroup({
   source: '[Global] Auth0',
   events: {
+    loadUser: type<void>(),
+    loadUserSuccess: type<User>(),
+    loadUserFailure: type<unknown>(),
     authenticate: type<void>(),
-    authenticateSuccess: type<Auth0State>(),
+    authenticateSuccess: type<boolean>(),
     authenticateFailure: type<unknown>(),
   },
 });
@@ -46,10 +49,19 @@ export const Auth0Store = signalStore(
   { providedIn: 'root' },
   withImmutableState(initialState),
   withCallState(),
+  withComputed((state) => ({
+    isAuthenticated: state._isAuthenticated,
+  })),
   withReducer(
+    on(auth0Events.loadUser, () => setLoading()),
+    on(auth0Events.loadUserSuccess, ({ payload: user }) => [
+      { _isAuthenticated: !!user },
+      setLoaded(),
+    ]),
+    on(auth0Events.loadUserFailure, ({ payload: error }) => setError(error)),
     on(auth0Events.authenticate, () => setLoading()),
-    on(auth0Events.authenticateSuccess, ({ payload: authState }) => [
-      { _isAuthenticated: authState.isAuthenticated },
+    on(auth0Events.authenticateSuccess, ({ payload: isAuthenticated }) => [
+      { _isAuthenticated: isAuthenticated },
       setLoaded(),
     ]),
     on(auth0Events.authenticateFailure, ({ payload: error }) => setError(error)),
@@ -63,12 +75,17 @@ export const Auth0Store = signalStore(
     ) => ({
       authenticateSuccess$: events.on(auth0Events.authenticateSuccess).pipe(
         tap((event) => {
-          if (event.payload.isAuthenticated) {
+          if (event.payload) {
             userDispatch.loadUser();
           }
         }),
       ),
       authenticateFailure$: events.on(auth0Events.authenticateFailure).pipe(
+        tap((event) => {
+          errorService.logError(event.payload);
+        }),
+      ),
+      loadUserFailure$: events.on(auth0Events.loadUserFailure).pipe(
         tap((event) => {
           errorService.logError(event.payload);
         }),
@@ -79,11 +96,19 @@ export const Auth0Store = signalStore(
     onInit() {
       const auth = inject(AuthService);
       const auth0Dispatch = injectDispatch(auth0Events);
+
       auth0Dispatch.authenticate();
+      auth0Dispatch.loadUser();
 
       auth.user$.subscribe((user) => {
         if (user) {
-          auth0Dispatch.authenticateSuccess({ user, isAuthenticated: true });
+          auth0Dispatch.loadUserSuccess(user);
+        }
+      });
+
+      auth.isAuthenticated$.subscribe((isAuthenticated) => {
+        if (isAuthenticated) {
+          auth0Dispatch.authenticateSuccess(isAuthenticated);
         }
       });
     },
