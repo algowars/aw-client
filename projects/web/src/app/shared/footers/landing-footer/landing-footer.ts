@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-landing-footer',
   imports: [],
   templateUrl: './landing-footer.html',
-  styleUrl: './landing-footer.css',
 })
 export class LandingFooter {
-
+  readonly currentYear = new Date().getFullYear();
 }

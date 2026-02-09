@@ -27,6 +27,9 @@
   },
   "private": true,
   "packageManager": "pnpm@10.27.0",
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "@angular-architects/ngrx-toolkit": "^21.0.1",
     "@angular/common": "^21.1.0",
