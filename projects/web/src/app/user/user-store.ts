@@ -8,7 +8,7 @@ import {
   withImmutableState,
 } from '@angular-architects/ngrx-toolkit';
 import { User } from './user';
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { exhaustMap, tap } from 'rxjs';
 import { UserService } from './user-service';
 import { mapResponse } from '@ngrx/operators';
@@ -33,12 +33,12 @@ export const initialState: UserStoreState = {
 };
 
 export const UserStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: 'root', protectedState: false },
   withImmutableState(initialState),
-  withComputed((store) => ({
-    isAuthenticated: () => !!store._user,
-  })),
   withCallState(),
+  withComputed((store) => ({
+    isAuthenticated: computed(() => !!store._user()),
+  })),
   withReducer(
     on(userEvents.loadUser, () => setLoading()),
     on(userEvents.loadUserSuccess, ({ payload: user }) => [{ _user: user }, setLoaded()]),
@@ -56,7 +56,10 @@ export const UserStore = signalStore(
         exhaustMap(() =>
           userService.getUser().pipe(
             mapResponse({
-              next: (user: User | null) => userEvents.loadUserSuccess(user),
+              next: (user: User | null) => {
+                console.log('USER: ', user);
+                return userEvents.loadUserSuccess(user);
+              },
               error: (error: unknown) => userEvents.loadUserFailure(error),
             }),
           ),

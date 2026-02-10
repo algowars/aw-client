@@ -8,7 +8,7 @@ export const environment = {
       redirect_uri: import.meta.env['NG_APP_AUTH_CALLBACK_URL'] as string,
     },
     httpInterceptor: {
-      allowedList: [import.meta.env['NG_APP_API_SERVER_URL'] as string],
+      allowedList: [`${import.meta.env['NG_APP_API_SERVER_URL']}/api/*`],
     },
   },
 };

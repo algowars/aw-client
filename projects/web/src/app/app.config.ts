@@ -13,10 +13,11 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@a
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
+    provideAuth0(environment.auth),
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideAuth0(environment.auth),
+
     MessageService,
     providePrimeNG({
       theme: {

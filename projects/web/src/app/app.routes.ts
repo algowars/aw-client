@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./auth/auth-callback/auth-callback').then((m) => m.AuthCallback),
   },
   {
+    path: 'forbidden',
+    loadComponent: () => import('./forbidden/forbidden').then((m) => m.Forbidden),
+  },
+  {
     path: '**',
     component: NotFound,
   },
