@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import { ButtonDirective, Button } from 'primeng/button';
 import { AuthService } from '@auth0/auth0-angular';
 import { Auth0Store } from '../../../auth/auth0-store';
-import { environment } from '../../../../environments/environment';
 
 interface NavItems {
   label: string;
@@ -57,9 +56,7 @@ export class LandingNavbar {
   logIn() {
     this.auth.loginWithRedirect({
       appState: {
-        target:
-          globalThis.window.document.location.origin +
-          environment.auth.authorizationParams.redirect_uri,
+        target: '/auth/callback',
       },
       authorizationParams: {
         prompt: 'login',
@@ -70,9 +67,7 @@ export class LandingNavbar {
   signUp() {
     this.auth.loginWithRedirect({
       appState: {
-        target:
-          globalThis.window.document.location.origin +
-          environment.auth.authorizationParams.redirect_uri,
+        target: '/auth/callback',
       },
       authorizationParams: {
         prompt: 'login',

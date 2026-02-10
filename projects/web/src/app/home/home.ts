@@ -13,6 +13,13 @@ export class Home {
   private readonly auth = inject(AuthService);
 
   logIn() {
-    this.auth.loginWithRedirect();
+    this.auth.loginWithRedirect({
+      appState: {
+        target: '/auth/callback',
+      },
+      authorizationParams: {
+        prompt: 'login',
+      },
+    });
   }
 }
