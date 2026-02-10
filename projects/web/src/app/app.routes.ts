@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { NotFound } from './not-found/not-found';
+import { userGuard } from './user/user-guard';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth/callback',
+    canActivate: [userGuard],
     loadComponent: () => import('./auth/auth-callback/auth-callback').then((m) => m.AuthCallback),
   },
   {

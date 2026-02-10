@@ -1,4 +1,4 @@
-import { signalStore, type } from '@ngrx/signals';
+import { signalStore, type, withComputed } from '@ngrx/signals';
 import { eventGroup, Events, on, withEventHandlers, withReducer } from '@ngrx/signals/events';
 import {
   setError,
@@ -35,6 +35,9 @@ export const initialState: UserStoreState = {
 export const UserStore = signalStore(
   { providedIn: 'root' },
   withImmutableState(initialState),
+  withComputed((store) => ({
+    isAuthenticated: () => !!store._user,
+  })),
   withCallState(),
   withReducer(
     on(userEvents.loadUser, () => setLoading()),
