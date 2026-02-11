@@ -8,13 +8,14 @@ import { environment } from '../environments/environment';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { themePreset } from './theme';
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { customAuthInterceptor } from './auth/custom-auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(withInterceptorsFromDi()),
     provideAuth0(environment.auth),
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    provideHttpClient(withInterceptors([customAuthInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
 

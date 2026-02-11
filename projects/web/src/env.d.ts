@@ -7,6 +7,7 @@ declare interface Env {
   readonly NG_APP_AUTH_DOMAIN: string;
   readonly NG_APP_AUTH_CLIENT_ID: string;
   readonly NG_APP_AUTH_AUDIENCE: string;
+  readonly NG_APP_AUTH_CALLBACK_URL: string;
   // Replace the following with your own environment variables.
   // Example: NGX_VERSION: string;
   [key: string]: any;
