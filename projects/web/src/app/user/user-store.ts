@@ -14,6 +14,8 @@ import { UserService } from './user-service';
 import { mapResponse } from '@ngrx/operators';
 import { ErrorService } from '../errors/error-service';
 import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export const userEvents = eventGroup({
   source: '[Global] User',
@@ -51,13 +53,13 @@ export const UserStore = signalStore(
       userService = inject(UserService),
       errorService = inject(ErrorService),
       messageService = inject(MessageService),
+      router = inject(Router),
     ) => ({
       loadUser$: events.on(userEvents.loadUser).pipe(
         exhaustMap(() =>
           userService.getUser().pipe(
             mapResponse({
               next: (user: User | null) => {
-                console.log('USER: ', user);
                 return userEvents.loadUserSuccess(user);
               },
               error: (error: unknown) => userEvents.loadUserFailure(error),
@@ -67,7 +69,11 @@ export const UserStore = signalStore(
       ),
       loadUserFailure$: events.on(userEvents.loadUserFailure).pipe(
         tap((event) => {
-          console.error('Failed to load user:', event.payload);
+          if (event.payload instanceof HttpErrorResponse && event.payload.status === 401) {
+            router.navigate(['/account/setup']);
+            return;
+          }
+
           errorService.logError(event.payload);
           messageService.add({
             severity: 'error',
