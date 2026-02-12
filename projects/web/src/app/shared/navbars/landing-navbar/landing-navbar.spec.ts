@@ -86,4 +86,62 @@ describe('LandingNavbar', () => {
 
     expect(labels).toContain('Home');
   });
+
+  it('should call loginWithRedirect when Log In button is clicked', async () => {
+    await setup(false);
+
+    const buttons = fixture.debugElement.queryAll(By.css('p-button'));
+    const loginButton = buttons.find(
+      (button) => button.nativeElement.textContent.trim() === 'Log In',
+    );
+
+    loginButton?.triggerEventHandler('onClick', null);
+
+    expect(mockAuthService.loginWithRedirect).toHaveBeenCalledWith({
+      appState: {
+        target: '/auth/callback',
+      },
+      authorizationParams: {
+        prompt: 'login',
+      },
+    });
+  });
+
+  it('should call loginWithRedirect with signup hint when Sign Up button is clicked', async () => {
+    await setup(false);
+
+    const buttons = fixture.debugElement.queryAll(By.css('p-button'));
+    const signUpButton = buttons.find(
+      (button) => button.nativeElement.textContent.trim() === 'Sign Up',
+    );
+
+    signUpButton?.triggerEventHandler('onClick', null);
+
+    expect(mockAuthService.loginWithRedirect).toHaveBeenCalledWith({
+      appState: {
+        target: '/auth/callback',
+      },
+      authorizationParams: {
+        prompt: 'login',
+        screen_hint: 'signup',
+      },
+    });
+  });
+
+  it('should call logout when Log out button is clicked', async () => {
+    await setup(true);
+
+    const buttons = fixture.debugElement.queryAll(By.css('p-button'));
+    const logoutButton = buttons.find(
+      (button) => button.nativeElement.textContent.trim() === 'Log out',
+    );
+
+    logoutButton?.triggerEventHandler('onClick', null);
+
+    expect(mockAuthService.logout).toHaveBeenCalledWith({
+      logoutParams: {
+        returnTo: globalThis.window.document.location.origin,
+      },
+    });
+  });
 });
