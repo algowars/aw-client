@@ -16,21 +16,18 @@ describe('AuthCallback', () => {
       logout: vi.fn(),
     };
 
-    const mockAuthStore = {};
+    const mockAuthStore = {
+      isAuthenticated: vi.fn().mockReturnValue(true),
+    };
 
     await TestBed.configureTestingModule({
       imports: [AuthCallback, ProgressSpinnerModule],
       providers: [
         { provide: AuthService, useValue: mockAuthService },
-        { provide: Auth0Store, useValue: mockAuthService },
+        { provide: Auth0Store, useValue: mockAuthStore },
         {
           provide: ActivatedRoute,
-          useValue: {
-            snapshot: {
-              params: { id: '123' },
-              queryParams: { hybrid: 'true' },
-            },
-          },
+          useValue: {},
         },
       ],
     }).compileComponents();
