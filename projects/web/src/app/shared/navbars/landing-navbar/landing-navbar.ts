@@ -22,7 +22,7 @@ export class LandingNavbar {
   private readonly auth = inject(AuthService);
   private readonly authStore = inject(Auth0Store);
 
-  private authenticatedRoutes: NavItems[] = [
+  private readonly authenticatedRoutes: NavItems[] = [
     {
       label: 'Log out',
       onClick: () => this.logOut(),
@@ -30,7 +30,7 @@ export class LandingNavbar {
     },
   ];
 
-  private unauthenticatedRoutes: NavItems[] = [
+  private readonly unauthenticatedRoutes: NavItems[] = [
     {
       label: 'Log In',
       onClick: () => this.logIn(),

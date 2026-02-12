@@ -3,7 +3,6 @@ import Aura from '@primeuix/themes/aura';
 
 export const themePreset = definePreset(Aura, {
   semantic: {
-    
     primary: {
       50: '{zinc.50}',
       100: '{zinc.100}',

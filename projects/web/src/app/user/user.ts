@@ -1,6 +1,6 @@
-export interface User { 
-    id: string;
-    username: string;
-    createdAt: string;
-    avatar: string;
+export interface User {
+  id: string;
+  username: string;
+  createdAt: string;
+  avatar: string;
 }

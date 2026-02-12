@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LandingNavbar } from "../../navbars/landing-navbar/landing-navbar";
-import { LandingFooter } from "../../footers/landing-footer/landing-footer";
+import { LandingNavbar } from '../../navbars/landing-navbar/landing-navbar';
+import { LandingFooter } from '../../footers/landing-footer/landing-footer';
 
 @Component({
   selector: 'app-landing-layout',
