@@ -1,5 +1,7 @@
 # AwClient
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=algowars_aw-client&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=algowars_aw-client)
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
 
 ## Environment variables
