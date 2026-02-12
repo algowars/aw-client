@@ -27,11 +27,11 @@ export const userEvents = eventGroup({
 });
 
 export interface UserStoreState {
-  _user: User | null;
+  user: User | null;
 }
 
 export const initialState: UserStoreState = {
-  _user: null,
+  user: null,
 };
 
 export const UserStore = signalStore(
@@ -39,11 +39,11 @@ export const UserStore = signalStore(
   withImmutableState(initialState),
   withCallState(),
   withComputed((store) => ({
-    isAuthenticated: computed(() => !!store._user()),
+    isAuthenticated: computed(() => !!store.user()),
   })),
   withReducer(
     on(userEvents.loadUser, () => setLoading()),
-    on(userEvents.loadUserSuccess, ({ payload: user }) => [{ _user: user }, setLoaded()]),
+    on(userEvents.loadUserSuccess, ({ payload: user }) => [{ user: user }, setLoaded()]),
     on(userEvents.loadUserFailure, ({ payload: error }) => [setError(error), setLoaded()]),
   ),
   withEventHandlers(

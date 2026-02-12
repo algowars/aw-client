@@ -15,7 +15,6 @@ export const userGuard: CanActivateFn = () => {
 
   return combineLatest([isAuth0Authenticated$, isUserAuthenticated$]).pipe(
     map(([isAuth0Authenticated, isUserAuthenticated]) => {
-      console.log(isAuth0Authenticated, isUserAuthenticated);
       if (isAuth0Authenticated && isUserAuthenticated) {
         return true;
       }
