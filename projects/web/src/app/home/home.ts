@@ -1,11 +1,25 @@
-import { Component } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { Component, inject } from '@angular/core';
+import { LandingLayout } from '../shared/layouts/landing-layout/landing-layout';
+import { ButtonDirective, Button } from 'primeng/button';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [LandingLayout, ButtonDirective, RouterLink, Button],
   templateUrl: './home.html',
 })
 export class Home {
-  protected serverUrl: string = environment.apiServerUrl;
+  private readonly auth = inject(AuthService);
+
+  logIn() {
+    this.auth.loginWithRedirect({
+      appState: {
+        target: '/auth/callback',
+      },
+      authorizationParams: {
+        prompt: 'login',
+      },
+    });
+  }
 }
