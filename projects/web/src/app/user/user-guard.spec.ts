@@ -3,8 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
-  GuardResult,
-  MaybeAsync,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
