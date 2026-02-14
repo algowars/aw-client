@@ -23,6 +23,7 @@ export const userEvents = eventGroup({
     loadUser: type<void>(),
     loadUserSuccess: type<User | null>(),
     loadUserFailure: type<unknown>(),
+    setUser: type<User>()
   },
 });
 
@@ -30,7 +31,7 @@ export interface UserStoreState {
   user: User | null;
 }
 
-export const initialState: UserStoreState = {
+ const initialState: UserStoreState = {
   user: null,
 };
 
@@ -45,6 +46,7 @@ export const UserStore = signalStore(
     on(userEvents.loadUser, () => setLoading()),
     on(userEvents.loadUserSuccess, ({ payload: user }) => [{ user: user }, setLoaded()]),
     on(userEvents.loadUserFailure, ({ payload: error }) => [setError(error), setLoaded()]),
+    on(userEvents.setUser, ({ payload: user }) => [{ user}])
   ),
   withEventHandlers(
     (

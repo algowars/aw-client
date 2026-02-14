@@ -11,6 +11,7 @@ import { Button } from 'primeng/button';
   templateUrl: './account-setup-form.html',
 })
 export class AccountSetupForm {
+  pr;
   protected readonly createAccountForm = new FormGroup({
     username: new FormControl('', Validators.required),
   });
