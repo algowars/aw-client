@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from './user';
 import { environment } from '../../environments/environment';
-import { concatOp, httpMutation, HttpMutationOptions } from '@angular-architects/ngrx-toolkit';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +15,7 @@ export class UserService {
     );
   }
 
-  createUserMutation(options: Partial<HttpMutationOptions<Partial<User>, User>>) {
-    return httpMutation({
-      ...options,
-      request: (user) => ({
-        url: `${environment.apiServerUrl}/api/v1/account`,
-        method: "POST",
-        body: user
-      }),
-      operator: concatOp
-    })
+  createAccount(username: string) {
+    return this.httpClient.post<string>(`${environment.apiServerUrl}/api/v1/account`, { username });
   }
 }

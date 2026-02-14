@@ -22,7 +22,7 @@
       type="submit"
       label="Create Account"
       styleClass="w-full"
-      [disabled]="formSubmitted || createAccountForm.invalid || saveAccount.isPending()"
+      [disabled]="formSubmitted || createAccountForm.invalid || isPending()"
     />
   </form>
 </p-card>

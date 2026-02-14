@@ -56,7 +56,7 @@ export class LandingNavbar {
   logIn() {
     this.auth.loginWithRedirect({
       appState: {
-        target: '/auth/callback',
+        target: '/',
       },
       authorizationParams: {
         prompt: 'login',
@@ -67,7 +67,7 @@ export class LandingNavbar {
   signUp() {
     this.auth.loginWithRedirect({
       appState: {
-        target: '/auth/callback',
+        target: '/',
       },
       authorizationParams: {
         prompt: 'login',
