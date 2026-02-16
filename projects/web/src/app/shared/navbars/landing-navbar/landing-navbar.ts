@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { ButtonDirective, Button } from 'primeng/button';
 import { AuthService } from '@auth0/auth0-angular';
 import { Auth0Store } from '../../../auth/auth0-store';
+import { auth0Login, auth0Logout, auth0SignUp } from '../../../auth/auth0-actions';
 
 interface NavItems {
   label: string;
@@ -54,33 +55,14 @@ export class LandingNavbar {
   ]);
 
   logIn() {
-    this.auth.loginWithRedirect({
-      appState: {
-        target: '/',
-      },
-      authorizationParams: {
-        prompt: 'login',
-      },
-    });
+    this.auth.loginWithRedirect(auth0Login);
   }
 
   signUp() {
-    this.auth.loginWithRedirect({
-      appState: {
-        target: '/',
-      },
-      authorizationParams: {
-        prompt: 'login',
-        screen_hint: 'signup',
-      },
-    });
+    this.auth.loginWithRedirect(auth0SignUp);
   }
 
   logOut() {
-    this.auth.logout({
-      logoutParams: {
-        returnTo: globalThis.window.document.location.origin,
-      },
-    });
+    this.auth.logout(auth0Logout);
   }
 }
