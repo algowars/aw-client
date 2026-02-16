@@ -1,44 +1,58 @@
-import { inject } from '@angular/core';
-import {
-  patchState,
-  signalMethod,
-  signalStore,
-  withMethods,
-  withProps,
-  withState,
-} from '@ngrx/signals';
+import { setError, setLoaded, setLoading, withCallState } from '@angular-architects/ngrx-toolkit';
+import { computed, inject } from '@angular/core';
+import { patchState, signalStore, withComputed, withMethods } from '@ngrx/signals';
 import { UserService } from '../../user/user-service';
-
-import { injectDispatch } from '@ngrx/signals/events';
-import { userEvents } from '../../user/user-store';
-import { MessageService } from 'primeng/api';
-import { ErrorService } from '../../errors/error-service';
+import { mapResponse } from '@ngrx/operators';
 import { Router } from '@angular/router';
-
-export interface AccountSetupStoreState {
-  username: string;
-}
-
-const initialState: AccountSetupStoreState = {
-  username: '',
-};
+import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const AccountSetupStore = signalStore(
-  withState(initialState),
+  withCallState(),
 
-  withProps(() => ({
-    _userService: inject(UserService),
-    _userDispatch: injectDispatch(userEvents),
-    _messageService: inject(MessageService),
-    _errorService: inject(ErrorService),
-    _router: inject(Router),
+  withComputed((store) => ({
+    hasError: computed(() => !!store.error()),
   })),
 
-  withMethods((store) => ({
-    updateUsername: signalMethod((username: string) => {
-      patchState(store, {
-        username,
-      });
+  withMethods(
+    (
+      store,
+      userService = inject(UserService),
+      router = inject(Router),
+      messageService = inject(MessageService),
+    ) => ({
+      createAccount: (form: { username: string }) => {
+        patchState(store, setLoading());
+
+        return userService
+          .createAccount(form)
+          .pipe(
+            mapResponse({
+              next: () => {
+                patchState(store, setLoaded());
+                messageService.add({
+                  severity: 'success',
+                  summary: 'Account Created',
+                });
+                router.navigate(['/dashboard']);
+              },
+              error: (error) => {
+                if (error instanceof HttpErrorResponse) {
+                  patchState(store, setError(error), setLoaded());
+                  messageService.add({
+                    severity: 'error',
+                    summary: 'Account Creation Failed',
+                    detail: error.error?.message || 'An unknown error occurred.',
+                  });
+                  return;
+                }
+
+                patchState(store, setError(error), setLoaded());
+              },
+            }),
+          )
+          .subscribe();
+      },
     }),
-  })),
+  ),
 );

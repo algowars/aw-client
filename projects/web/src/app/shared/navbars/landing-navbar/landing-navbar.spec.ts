@@ -99,7 +99,7 @@ describe('LandingNavbar', () => {
 
     expect(mockAuthService.loginWithRedirect).toHaveBeenCalledWith({
       appState: {
-        target: '/auth/callback',
+        target: '/',
       },
       authorizationParams: {
         prompt: 'login',
@@ -119,7 +119,7 @@ describe('LandingNavbar', () => {
 
     expect(mockAuthService.loginWithRedirect).toHaveBeenCalledWith({
       appState: {
-        target: '/auth/callback',
+        target: '/',
       },
       authorizationParams: {
         prompt: 'login',
