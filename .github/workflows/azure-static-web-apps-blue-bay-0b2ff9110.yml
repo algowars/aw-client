@@ -35,6 +35,9 @@ jobs:
           NG_APP_AUTH_CLIENT_ID: ${{ secrets.SCRUM_AUTH_CLIENT_ID }}
           NG_APP_AUTH_AUDIENCE: ${{ secrets.SCRUM_AUTH_AUDIENCE }}
           NG_APP_AUTH_CALLBACK_URL: ${{ secrets.SCRUM_AUTH_CALLBACK_URL }}
+          NG_APP_AUTH_CACHE_LOCATION: ${{ secrets.SCRUM_AUTH_CACHE_LOCATION }}
+          NG_APP_AUTH_USE_REFRESH_TOKENS: ${{ secrets.SCRUM_AUTH_USE_REFRESH_TOKENS }}
+
         run: pnpm build
 
       - name: Install OIDC Client from Core Package

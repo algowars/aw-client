@@ -40,6 +40,10 @@ jobs:
           NG_APP_API_SERVER_URL: ${{ vars.STAGING_API_SERVER_URL }}
           NG_APP_AUTH_DOMAIN: ${{ vars.STAGING_AUTH_DOMAIN }}
           NG_APP_AUTH_CLIENT_ID: ${{ vars.STAGING_AUTH_CLIENT_ID }}
+          NG_APP_AUTH_AUDIENCE: ${{ vars.STAGING_AUTH_AUDIENCE }}
+          NG_APP_AUTH_CALLBACK_URL: ${{ vars.STAGING_AUTH_CALLBACK_URL }}
+          NG_APP_AUTH_CACHE_LOCATION: ${{ vars.STAGING_AUTH_CACHE_LOCATION }}
+          NG_APP_AUTH_USE_REFRESH_TOKENS: ${{ vars.STAGING_AUTH_USE_REFRESH_TOKENS }}
 
       - name: Lint code
         run: pnpm lint
@@ -54,6 +58,10 @@ jobs:
           NG_APP_API_SERVER_URL: ${{ vars.STAGING_API_SERVER_URL }}
           NG_APP_AUTH_DOMAIN: ${{ vars.STAGING_AUTH_DOMAIN }}
           NG_APP_AUTH_CLIENT_ID: ${{ vars.STAGING_AUTH_CLIENT_ID }}
+          NG_APP_AUTH_AUDIENCE: ${{ vars.STAGING_AUTH_AUDIENCE }}
+          NG_APP_AUTH_CALLBACK_URL: ${{ vars.STAGING_AUTH_CALLBACK_URL }}
+          NG_APP_AUTH_CACHE_LOCATION: ${{ vars.STAGING_AUTH_CACHE_LOCATION }}
+          NG_APP_AUTH_USE_REFRESH_TOKENS: ${{ vars.STAGING_AUTH_USE_REFRESH_TOKENS }}
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
