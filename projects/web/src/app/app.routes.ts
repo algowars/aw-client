@@ -25,6 +25,10 @@ export const routes: Routes = [
     loadComponent: () => import('./forbidden/forbidden').then((m) => m.Forbidden),
   },
   {
+    path: 'problems',
+    loadComponent: () => import('./problems/problems').then((m) => m.Problems),
+  },
+  {
     path: '**',
     component: NotFound,
   },
