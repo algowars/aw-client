@@ -92,12 +92,12 @@ describe('UserStore', () => {
     });
   });
 
-  it('loadUserFailure should navigate to /account/setup if the error status is 401', () => {
+  it('loadUserFailure should navigate to /account/setup if the error status is 404', () => {
     TestBed.inject(UserStore);
     const mockRouter = TestBed.inject(Router);
     const userDispatch = TestBed.runInInjectionContext(() => injectDispatch(userEvents));
 
-    const error = new HttpErrorResponse({ status: 401 });
+    const error = new HttpErrorResponse({ status: 404 });
     userDispatch.loadUserFailure(error);
 
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/account/setup']);

@@ -14,4 +14,11 @@ export class UserService {
       `${environment.apiServerUrl}/api/v1/account/find/profile`,
     );
   }
+
+  createAccount(createAccountForm: { username: string }) {
+    return this.httpClient.post<string>(
+      `${environment.apiServerUrl}/api/v1/account`,
+      createAccountForm,
+    );
+  }
 }

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { NotFound } from './not-found/not-found';
-import { userGuard } from './user/user-guard';
 import { noUserGuard } from './user/no-user-guard';
+import { AuthGuard } from '@auth0/auth0-angular';
 
 export const routes: Routes = [
   {
@@ -11,13 +11,13 @@ export const routes: Routes = [
   },
   {
     path: 'account/setup',
-    canActivate: [noUserGuard],
+    canActivate: [AuthGuard, noUserGuard],
     loadComponent: () =>
       import('./account/account-setup/account-setup').then((m) => m.AccountSetup),
   },
   {
     path: 'auth/callback',
-    canActivate: [userGuard],
+    canActivate: [AuthGuard],
     loadComponent: () => import('./auth/auth-callback/auth-callback').then((m) => m.AuthCallback),
   },
   {

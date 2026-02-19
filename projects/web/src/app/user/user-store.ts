@@ -23,6 +23,7 @@ export const userEvents = eventGroup({
     loadUser: type<void>(),
     loadUserSuccess: type<User | null>(),
     loadUserFailure: type<unknown>(),
+    setUser: type<User>(),
   },
 });
 
@@ -30,7 +31,7 @@ export interface UserStoreState {
   user: User | null;
 }
 
-export const initialState: UserStoreState = {
+const initialState: UserStoreState = {
   user: null,
 };
 
@@ -69,7 +70,7 @@ export const UserStore = signalStore(
       ),
       loadUserFailure$: events.on(userEvents.loadUserFailure).pipe(
         tap((event) => {
-          if (event.payload instanceof HttpErrorResponse && event.payload.status === 401) {
+          if (event.payload instanceof HttpErrorResponse && event.payload.status === 404) {
             router.navigate(['/account/setup']);
             return;
           }
