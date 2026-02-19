@@ -5,6 +5,7 @@ import { MessageModule } from 'primeng/message';
 import { CardModule } from 'primeng/card';
 import { Button } from 'primeng/button';
 import { AccountSetupStore } from '../account-setup/account-setup-store';
+import { usernameValidator } from './username-validator';
 
 @Component({
   selector: 'app-account-setup-form',
@@ -19,7 +20,12 @@ export class AccountSetupForm {
   readonly form = new FormGroup({
     username: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(16),
+        usernameValidator(),
+      ],
     }),
   });
 
