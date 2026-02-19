@@ -1,4 +1,4 @@
-import { setError, setLoaded, setLoading, withCallState } from '@angular-architects/ngrx-toolkit';
+import { setError, setLoading, withCallState } from '@angular-architects/ngrx-toolkit';
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods } from '@ngrx/signals';
 import { UserService } from '../../user/user-service';
@@ -22,14 +22,13 @@ export const AccountSetupStore = signalStore(
       messageService = inject(MessageService),
     ) => ({
       createAccount: (form: { username: string }) => {
+        patchState(store, setError(null));
         patchState(store, setLoading());
-
         return userService
           .createAccount(form)
           .pipe(
             mapResponse({
               next: () => {
-                patchState(store, setLoaded());
                 messageService.add({
                   severity: 'success',
                   summary: 'Account Created',
@@ -38,7 +37,7 @@ export const AccountSetupStore = signalStore(
               },
               error: (error) => {
                 if (error instanceof HttpErrorResponse) {
-                  patchState(store, setError(error), setLoaded());
+                  patchState(store, setError(error.error));
                   messageService.add({
                     severity: 'error',
                     summary: 'Account Creation Failed',
@@ -46,8 +45,7 @@ export const AccountSetupStore = signalStore(
                   });
                   return;
                 }
-
-                patchState(store, setError(error), setLoaded());
+                patchState(store, setError(error));
               },
             }),
           )

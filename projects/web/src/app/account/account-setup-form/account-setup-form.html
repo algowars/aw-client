@@ -3,9 +3,11 @@
     <h2 class="text-2xl font-bold">Welcome to Algowars</h2>
     <p class="text-muted-color">Finish setting up your account</p>
     @if (accountSetupStore.hasError()) {
-      <p-message severity="error" size="small" variant="simple">{{
-        accountSetupStore.error()
-      }}</p-message>
+      <div class="mt-2 flex justify-center">
+        <p-message severity="error" size="small" variant="simple">{{
+          accountSetupStore.error()
+        }}</p-message>
+      </div>
     }
   </div>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
@@ -25,9 +27,9 @@
     </div>
     <p-button
       type="submit"
-      label="Create Account"
+      [label]="accountSetupStore.loading() ? 'Creating Account...' : 'Create Account'"
       styleClass="w-full"
-      [disabled]="formSubmitted() || form.invalid || accountSetupStore.loading()"
+      [disabled]="form.invalid || accountSetupStore.loading()"
     />
   </form>
 </p-card>

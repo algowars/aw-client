@@ -5,10 +5,11 @@ import { MessageModule } from 'primeng/message';
 import { CardModule } from 'primeng/card';
 import { Button } from 'primeng/button';
 import { AccountSetupStore } from '../account-setup/account-setup-store';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-account-setup-form',
-  imports: [MessageModule, InputTextModule, ReactiveFormsModule, CardModule, Button],
+  imports: [MessageModule, InputTextModule, ReactiveFormsModule, JsonPipe, CardModule, Button],
   templateUrl: './account-setup-form.html',
 })
 export class AccountSetupForm {
